@@ -4,8 +4,8 @@ import { useNavigate } from 'react-router-dom'
 export default function Profile() {
   const navigate = useNavigate()
   const user = {
-    name: 'Mehek Khan',
-    email: 'mehek@internx.com',
+    name: 'Mehek',
+    email: 'mehek@example.com',
     skills: ['React', 'UI Design', 'JavaScript', 'Tailwind CSS', 'Web Development'],
     internshipsCompleted: 3,
     appliedJobs: 5,

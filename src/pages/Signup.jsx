@@ -107,9 +107,9 @@ function Signup() {
           </p>
         </div>
 
-        <div className="mt-4 rounded-lg bg-blue-50 p-3 text-center text-xs text-slate-600 dark:bg-sky-950/30 dark:text-sky-300">
+        {/* <div className="mt-4 rounded-lg bg-blue-50 p-3 text-center text-xs text-slate-600 dark:bg-sky-950/30 dark:text-sky-300">
           Demo: All signups are instant (no backend required)
-        </div>
+        </div> */}
       </Card>
     </div>
   )

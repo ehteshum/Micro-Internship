@@ -29,11 +29,13 @@ function Navbar() {
     location.pathname.startsWith('/details') ||
     location.pathname.startsWith('/profile') ||
     location.pathname.startsWith('/applications') ||
-    location.pathname.startsWith('/workspace')
+    location.pathname.startsWith('/workspace') ||
+    location.pathname.startsWith('/pricing')
+
 
   const workspaceCenterNav = [
-    { label: 'Internships', to: '/internships' },
     { label: 'Dashboard', to: '/dashboard' },
+    { label: 'Internships', to: '/internships' },
     { label: 'Applications', to: '/applications' },
     { label: 'Workspace', to: '/workspace' },
     { label: 'Pricing', to: '/pricing' },
