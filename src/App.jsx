@@ -38,6 +38,15 @@ function PrivateRoute({ children }) {
   return children
 }
 
+// ChatbotWrapper: hide chatbot on company routes
+function ChatbotWrapper() {
+  const location = useLocation()
+  const isCompanyRoute = location.pathname.startsWith('/company')
+  
+  if (isCompanyRoute) return null
+  return <Chatbot />
+}
+
 function App() {
   return (
     <ThemeProvider>
@@ -148,7 +157,7 @@ function App() {
            />
           </Route>
         </Routes>
-        <Chatbot />
+        <ChatbotWrapper />
       </BrowserRouter>
     </ThemeProvider>
   )
