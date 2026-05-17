@@ -23,7 +23,9 @@ function Navbar() {
         { label: 'About', to: '/about' },
       ]
   const location = useLocation()
+  const isCompanyRoute = location.pathname.startsWith('/company') && location.pathname !== '/company/login'
   const isWorkspaceRoute =
+    isCompanyRoute ||
     location.pathname.startsWith('/dashboard') ||
     location.pathname.startsWith('/internships') ||
     location.pathname.startsWith('/details') ||
@@ -31,7 +33,6 @@ function Navbar() {
     location.pathname.startsWith('/applications') ||
     location.pathname.startsWith('/workspace') ||
     location.pathname.startsWith('/pricing')
-
 
   const workspaceCenterNav = [
     { label: 'Dashboard', to: '/dashboard' },
@@ -41,11 +42,26 @@ function Navbar() {
     { label: 'Pricing', to: '/pricing' },
   ]
 
+  const companyCenterNav = [
+    { label: 'Dashboard', to: '/company/dashboard' },
+    { label: 'Post Internship', to: '/company/post' },
+    { label: 'Applicants', to: '/company/applicants' },
+  ]
+
+  const companyMenuNav = [
+    { label: 'Dashboard', to: '/company/dashboard' },
+    { label: 'Post Internship', to: '/company/post' },
+    { label: 'Applicants', to: '/company/applicants' },
+  ]
+
   const userMenuNav = [
     { label: 'Workspace', to: '/workspace' },
     { label: 'Applications', to: '/applications' },
     { label: 'Profile', to: '/profile' },
   ]
+
+  const profileName = isCompanyRoute ? 'TechNova Inc.' : localStorage.getItem('user_name') || 'Mehek'
+  const profileAvatar = isCompanyRoute ? 'TN' : (localStorage.getItem('user_name') || 'M').charAt(0).toUpperCase()
 
   const handleLogout = () => {
     localStorage.removeItem('auth_token')
@@ -63,7 +79,7 @@ function Navbar() {
         </Link>
 
         <nav className="hidden md:flex flex-1 justify-center items-center gap-6">
-          {(isWorkspaceRoute ? workspaceCenterNav : visibleNavItems).map((item) => (
+          {(isWorkspaceRoute ? (isCompanyRoute ? companyCenterNav : workspaceCenterNav) : visibleNavItems).map((item) => (
             <NavLink
               key={item.to}
               to={item.to}
@@ -99,17 +115,17 @@ function Navbar() {
               onClick={() => setProfileOpen(!profileOpen)}
               className="flex items-center gap-3 rounded-lg px-3 py-2 transition-all hover:bg-slate-100 dark:hover:bg-slate-800"
             >
-              <div className="flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-primary to-accent text-sm font-semibold text-white">M</div>
-              <span className="text-sm font-medium text-slate-700 dark:text-slate-200">Mehek</span>
+              <div className="flex h-8 w-8 items-center justify-center rounded-full bg-slate-900 text-sm font-semibold text-white">{profileAvatar}</div>
+              <span className="text-sm font-medium text-slate-700 dark:text-slate-200">{profileName}</span>
             </button>
             {profileOpen && (
-              <div className="absolute right-0 top-12 z-50 w-40 rounded-lg border border-slate-200 bg-white p-2 shadow-lg dark:border-slate-800 dark:bg-slate-900">
-                {userMenuNav.map((item) => (
+              <div className="absolute right-0 top-12 z-50 w-44 rounded-3xl border border-gray-100 bg-white/80 backdrop-blur-xl p-2 shadow-xl dark:border-slate-800 dark:bg-slate-950/90">
+                {(isCompanyRoute ? companyMenuNav : userMenuNav).map((item) => (
                   <Link
                     key={item.to}
                     to={item.to}
                     onClick={() => setProfileOpen(false)}
-                    className="block rounded-lg px-4 py-2 text-sm text-slate-700 transition-all hover:bg-slate-100 dark:text-slate-200 dark:hover:bg-slate-800"
+                    className="block rounded-2xl px-4 py-2 text-sm text-slate-700 transition-all hover:bg-slate-100 dark:text-slate-200 dark:hover:bg-slate-800"
                   >
                     {item.label}
                   </Link>
@@ -121,7 +137,7 @@ function Navbar() {
                     handleLogout()
                     setProfileOpen(false)
                   }}
-                  className="w-full text-left block rounded-lg px-4 py-2 text-sm text-red-600 transition-all hover:bg-red-50 dark:text-red-400 dark:hover:bg-red-950/30"
+                  className="w-full text-left block rounded-2xl px-4 py-2 text-sm text-red-600 transition-all hover:bg-red-50 dark:text-red-400 dark:hover:bg-red-950/30"
                 >
                   Logout
                 </button>
@@ -166,7 +182,7 @@ function Navbar() {
       {open && (
         <div className="border-t border-slate-100 bg-white px-6 py-4 dark:border-slate-800 dark:bg-slate-950 md:hidden">
           <div className="flex flex-col gap-2">
-            {(isWorkspaceRoute ? workspaceCenterNav : visibleNavItems).map((item) => (
+            {(isWorkspaceRoute ? (isCompanyRoute ? companyCenterNav : workspaceCenterNav) : visibleNavItems).map((item) => (
               <NavLink
                 key={item.to}
                 to={item.to}
@@ -185,7 +201,7 @@ function Navbar() {
             {isWorkspaceRoute && (
               <>
                 <hr className="my-2" />
-                {userMenuNav.map((item) => (
+                {(isCompanyRoute ? companyMenuNav : userMenuNav).map((item) => (
                   <Link
                     key={item.to}
                     to={item.to}
