@@ -20,7 +20,7 @@ function Navbar() {
     ? navItems
     : [
         { label: 'Home', to: '/' },
-        { label: 'About', to: '/about' },
+        { label: 'Pricing', to: '/pricing' },
       ]
   const location = useLocation()
   const isCompanyRoute = location.pathname.startsWith('/company') && location.pathname !== '/company/login'
@@ -31,8 +31,7 @@ function Navbar() {
     location.pathname.startsWith('/details') ||
     location.pathname.startsWith('/profile') ||
     location.pathname.startsWith('/applications') ||
-    location.pathname.startsWith('/workspace') ||
-    location.pathname.startsWith('/pricing')
+    location.pathname.startsWith('/workspace')
 
   const workspaceCenterNav = [
     { label: 'Dashboard', to: '/dashboard' },
@@ -71,12 +70,12 @@ function Navbar() {
   return (
     <header className="sticky top-0 z-30 border-b border-slate-100 bg-white/80 backdrop-blur-md dark:border-slate-800/60 dark:bg-slate-950/75">
       <div className="flex w-full items-center px-6 py-4 md:px-8">
-        <Link to="/" className="flex items-center gap-3">
+        <div className="flex items-center gap-3 select-none">
           <div className="flex h-10 w-10 items-center justify-center overflow-hidden rounded-xl bg-primary shadow-sm shadow-sky-500/20">
             <img src={heroLogo} alt="InternX logo" className="h-full w-full object-cover" />
           </div>
           <p className="font-['Outfit'] text-lg font-semibold text-slate-900 dark:text-slate-100">InternX</p>
-        </Link>
+        </div>
 
         <nav className="hidden md:flex flex-1 justify-center items-center gap-6">
           {(isWorkspaceRoute ? (isCompanyRoute ? companyCenterNav : workspaceCenterNav) : visibleNavItems).map((item) => (
