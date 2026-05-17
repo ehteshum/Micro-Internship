@@ -3,13 +3,16 @@ import { useNavigate } from 'react-router-dom'
 
 export default function Profile() {
   const navigate = useNavigate()
+  const userName = localStorage.getItem('user_name') || 'Mehek'
+  const userEmail = localStorage.getItem('user_email') || 'mehek@example.com'
+  const verifiedSkills = JSON.parse(localStorage.getItem('verified_skills') || '[]')
   const user = {
-    name: 'Mehek',
-    email: 'mehek@example.com',
+    name: userName,
+    email: userEmail,
     skills: ['React', 'UI Design', 'JavaScript', 'Tailwind CSS', 'Web Development'],
     internshipsCompleted: 3,
     appliedJobs: 5,
-    profileCompletion: 85
+    profileCompletion: 85,
   }
 
   const handleLogout = () => {
@@ -84,6 +87,25 @@ export default function Profile() {
             </button>
           </div>
         </div>
+
+        {verifiedSkills.length > 0 && (
+          <div className="backdrop-blur-xl bg-white/70 border border-white/40 p-6 rounded-2xl shadow-xl dark:bg-slate-900/70 dark:border-slate-800/70">
+            <h2 className="text-xl font-semibold text-gray-800 flex items-center gap-2 mb-4 dark:text-slate-100">
+              <Award className="w-5 h-5 text-primary" />
+              Verified Skills
+            </h2>
+            <div className="flex flex-wrap gap-2">
+              {verifiedSkills.map((skill) => (
+                <span
+                  key={skill}
+                  className="rounded-full bg-emerald-100 px-4 py-2 text-sm font-semibold text-emerald-700 dark:bg-emerald-500/15 dark:text-emerald-200"
+                >
+                  ✔ {skill}
+                </span>
+              ))}
+            </div>
+          </div>
+        )}
 
         {/* Skills Section */}
         <div className="backdrop-blur-xl bg-white/70 border border-white/40 p-6 rounded-2xl shadow-xl dark:bg-slate-900/70 dark:border-slate-800/70">
